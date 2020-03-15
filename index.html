@@ -9,23 +9,30 @@
 </head>
 
 <body>
-    <div id="canvas"></div>
+    <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        canvas.onclick = (e) => {
-            console.log(e.clientX)
-            console.log(e.clientY)
-            //console.log调试法//
-            let div = document.createElement('div')
-            div.style.position = 'absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px'
-            div.style.height = '6px'
-            div.style.width = '6px'
-            div.style.marginLeft = '-3px'
-            div.style.marginTop = '-3px'
-            div.style.borderRadius = '50%'
-            div.style.backgroundColor = 'black'
-            canvas.appendChild(div)
+        //画线//
+        let canvas = document.getElementById("canvas"); //获取文件canvas//
+        canvas.width = document.documentElement.clientWidth //获取屏幕的宽度//
+        canvas.height = document.documentElement.clientHeight //获取屏幕的高度//
+
+        let ctx = canvas.getContext("2d");
+
+        let painting = false
+
+        ctx.fillStyle = "blue";
+        canvas.onmousedown = () => {
+            painting = true
+        }
+        canvas.onmousemove = (e) => {
+            if (painting === true) {
+                ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+            } else {
+                console.log('什么也不做')
+            }
+            canvas.onmouseup = () => {
+                painting = false
+            }
         }
     </script>
 </body>
